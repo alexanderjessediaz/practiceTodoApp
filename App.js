@@ -1,13 +1,46 @@
 import { StatusBar } from 'expo-status-bar';
 import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, Text, View, TextInput } from 'react-native';
+import { NavigationContainer, useNavigation } from '@react-navigation/native';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import Plus from 'react-native-vector-icons/AntDesign';
+
+const TodoInput = () => (
+  <View>
+    <TextInput style={styles.toDoLayout}>Add To Do: </TextInput>
+  </View>
+)
+
+const CompletedTodo = () => (
+  <View>
+    <Text>Completed Todo</Text>
+  </View>
+)
+
+
+const Tab = createBottomTabNavigator();
+
+export const AppNavigator = () => (
+  <Tab.Navigator>
+    <Tab.Screen name="TodoInput" component={TodoInput} 
+    options={{
+      tabBarIcon: ({ focused, color }) => (
+          <Text style={{ marginTop: 6 }}> 
+              <Plus name={'pluscircle'} size={30} color={color} />
+          </Text>
+      )
+  }} 
+    />
+    <Tab.Screen name="CompletedTodos" component={CompletedTodo}/>
+  </Tab.Navigator>
+);
 
 export default function App() {
   return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
+    <NavigationContainer>
+      <AppNavigator/>
+      <StatusBar style="auto" />   
+    </NavigationContainer>
   );
 }
 
@@ -18,4 +51,9 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
+  toDoLayout: { 
+    borderStyle: 'solid',
+    borderRadius: 6,
+    borderWidth: 4,
+  }
 });

@@ -4,6 +4,7 @@ import { StyleSheet, Text, View, TextInput } from 'react-native';
 import { NavigationContainer, useNavigation } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import Plus from 'react-native-vector-icons/AntDesign';
+import Check from 'react-native-vector-icons/AntDesign'
 
 const TodoInput = () => (
   <View>
@@ -24,14 +25,22 @@ export const AppNavigator = () => (
   <Tab.Navigator>
     <Tab.Screen name="TodoInput" component={TodoInput} 
     options={{
-      tabBarIcon: ({ focused, color }) => (
+      tabBarIcon: ({ focused, color, size }) => (
           <Text style={{ marginTop: 6 }}> 
               <Plus name={'pluscircle'} size={30} color={color} />
           </Text>
       )
   }} 
     />
-    <Tab.Screen name="CompletedTodos" component={CompletedTodo}/>
+    <Tab.Screen name="CompletedTodos" component={CompletedTodo}
+    options={{
+      tabBarIcon: ({ focused, color, size }) => (
+          <Text style={{ marginTop: 6 }}> 
+              <Check name={'checkcircle'} size={30} color={color} />
+          </Text>
+      )
+  }} 
+    />
   </Tab.Navigator>
 );
 

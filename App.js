@@ -1,6 +1,6 @@
 import { StatusBar } from 'expo-status-bar';
 import React, {useState} from 'react';
-import { StyleSheet, Text, View, TextInput, Pressable } from 'react-native';
+import { StyleSheet, Text, View, TextInput, Pressable, Switch } from 'react-native';
 import { NavigationContainer, useNavigation } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import Plus from 'react-native-vector-icons/AntDesign';
@@ -21,7 +21,31 @@ const handleSubmit = (text) => {
 }
 
 
-console.log(todos)
+
+//join here: https://meet.google.com/duu-xfso-pbq
+
+
+const toggleSwitch = (index) => {
+  const [isCompleted, setIsCompleted] = useState(false)
+  setIsCompleted(!todos[index].completed)
+  return isCompleted
+}
+
+const displayTodos = todos.map((todo, index) => {
+  console.log(todos[index].completed)
+    return (
+      <View key={index}>
+        <Text >{todo.todo}</Text> 
+        <Switch 
+          trackColor={{ false: "#767577", true: "#81b0ff" }}
+          thumbColor={todo.completed ? "#f5dd4b" : "#f4f3f4"}
+          value={todo.completed}
+          onValueChange={() => toggleSwitch(index)}
+        />
+      </View>
+    )
+  })
+
 
   return (
   <View>
@@ -33,6 +57,7 @@ console.log(todos)
     <Pressable onPress={() => handleSubmit(text)} >
       <Text>Add Todo</Text>
     </Pressable>
+    <View>{displayTodos}</View>
   </View>
   
   )}
